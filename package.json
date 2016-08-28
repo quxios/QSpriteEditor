@@ -1,0 +1,15 @@
+{
+  "name": "Quasi Sprite",
+  "version": "1.00",
+  "main": "app/index.html",
+  "window": {
+    "icon": "app/imgs/Q-Logo76x76.png",
+    "toolbar": false,
+    "resizable": true,
+    "width": 1000,
+    "min_width": 300,
+    "height": 600,
+    "min_height": 100
+  },
+  "author": "Quasi"
+}
