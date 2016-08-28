@@ -240,6 +240,7 @@
         json[prop]["anchorY"] = 1;
       }
     }
+    current = [];
     setupCanvas();
   });
 
@@ -377,12 +378,12 @@
     if (this.value === '') {
       this.value = json[current[0]].cols;
     } else {
-      json[current[0]].cols = Number(this.valuee);
+      json[current[0]].cols = Number(this.value);
       sliceImg();
     }
   }).keypress(function(event) {
     if (event.keyCode === 13) {
-      $(this).changee();
+      $(this).change();
     }
     return event.keyCode >= 48 && event.keyCode <= 57;
   });
@@ -391,7 +392,7 @@
     if (this.value === '') {
       this.value = json[current[0]].rows;
     } else {
-      json[current[0]].rows = Number(this.valuee);
+      json[current[0]].rows = Number(this.value);
       sliceImg();
     }
   }).keypress(function(event) {
