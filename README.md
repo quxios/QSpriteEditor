@@ -1,12 +1,30 @@
 ## Quasi Sprite Animator App
 
 ## How to run
-Open app with [NW.js](https://github.com/nwjs/nw.js) or build the app.
+**With Electron**
+1. Download or Clone the repo
+2. Open command prompt and cd to the folder containing package.json ( not the package.json inside the app folder! )
+3. Install the dependencies by using the cli
+`npm install`
+4. Run the app with electron by using the cli
+`electron .`
+( That's assuming you're in the package.json directory, if not cd to that directory )
+or with dev tools run
+`electron . --dev`
+
+**From download**
+Run the QuasiSprite shortcut or .exe
+
+## Building
+Two Scripts are included to build:
+`build64` and `build32` will build for Windows 64bit and 32bit
+To use, run the cli
+`npm run build64` or `npm run build32`
+( That's assuming you're in the package.json directory, if not cd to that directory )
 
 ## Prebuilt
-Version 1.00
-* Windows - [32bit](https://www.dropbox.com/s/p6aw4ww8jxzbnbr/SpriteAnimator.rar?dl=0)
-( Build with Gulp )
+Version 2.0.0
+* Windows - [32bit](https://www.dropbox.com/s/401w0e6yl28iegm/SpriteAnimator32.rar?dl=0),[64bit](https://www.dropbox.com/s/hrxe4cbmpf4849o/SpriteAnimator.rar?dl=0)
 
 ## Instructions
 **Creating a Config**
