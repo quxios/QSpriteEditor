@@ -1,0 +1,13 @@
+{
+  "name": "QuasiSprite",
+  "version": "1.1.0",
+  "main": "js/main.js",
+  "author": "Quasi",
+  "description": "Spritesheet Config",
+  "license": "MIT",
+  "dependencies": {
+    "pixi.js": "^4.2.2",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  }
+}

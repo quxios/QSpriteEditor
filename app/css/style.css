@@ -1,0 +1,140 @@
+body {
+  color: #1f1f1f;
+  padding: 0;
+  margin: 0;
+  -webkit-user-select: none;
+  cursor: default;
+  overflow: hidden;
+}
+.menubar {
+  background-color: #fafafa;
+  border-bottom: 2px solid #e0e0e0;
+  height: 32px;
+  line-height: 32px;
+}
+.toolbar {
+  background-color: #fafafa;
+  border-right: 2px solid #e0e0e0;
+  width: 223px;
+}
+.toolbar .padded {
+  padding: 5px;
+}
+.toolbar .header,
+.toolbar .footer {
+  height: 50px;
+  line-height: 50px;
+}
+.toolbar .configItem {
+  padding: 5px 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  height: 1em;
+}
+.toolbar .configItem:hover,
+.toolbar .configItem.selected {
+  background-color: #e0e0e0;
+}
+.navi:hover {
+  color: #9e9e9e;
+}
+.navi.pointer:hover {
+  color: #03a9f4;
+}
+.header {
+  font-weight: bold;
+}
+.settings {
+  display: flex;
+  flex-direction: column;
+}
+.settings .item {
+  width: 100%;
+  height: 26px;
+  line-height: 26px;
+  position: relative;
+}
+.settings .item label {
+  float: left;
+  width: 90px;
+}
+.settings .item input[type=text] {
+  width: 115px;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  padding: 3px;
+  box-sizing: border-box;
+  color: #9e9e9e;
+  transition: all 200ms linear;
+}
+.settings .item input[type=text]:hover {
+  border-color: #03a9f4;
+  color: #1f1f1f;
+}
+.settings .item input[type=text]:focus {
+  color: #1f1f1f;
+  border-color: #03a9f4;
+  outline: none;
+  box-shadow: inset 0 0 2px #03a9f4;
+}
+.settings .item input[type=text].error {
+  border-color: #f44336;
+  color: #f44336;
+}
+.settings .item input[type=text].error:focus {
+  box-shadow: inset 0 0 2px #f44336;
+}
+.settings .item input[type=file] {
+  display: none;
+}
+.contextMenu {
+  position: absolute;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  padding: 5px 0;
+  z-index: 2;
+}
+.contextMenu .item {
+  padding: 2px 5px;
+  cursor: pointer;
+}
+.contextMenu .item:hover {
+  background-color: #e0e0e0;
+}
+.veil {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.pointer {
+  cursor: pointer;
+}
+.disabled {
+  cursor: not-allowed;
+}
+.hidden {
+  display: none;
+}
+button {
+  height: 24px;
+  min-width: 60px;
+  margin: 0 5px;
+  outline: none;
+  background-color: inherit;
+  border: 2px solid #e0e0e0;
+  border-radius: 3px;
+  transition: all 150ms linear;
+}
+button:hover {
+  border-color: #03a9f4;
+  color: #03a9f4;
+}
+button.disabled:hover {
+  border-color: #f44336;
+  color: #f44336;
+}
+canvas {
+  position: absolute;
+  top: 34px;
+}

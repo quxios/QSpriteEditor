@@ -1,15 +1,36 @@
 {
-  "name": "Quasi Sprite",
-  "version": "1.00",
-  "main": "app/index.html",
-  "window": {
-    "icon": "app/imgs/Q-Logo76x76.png",
-    "toolbar": false,
-    "resizable": true,
-    "width": 1000,
-    "min_width": 300,
-    "height": 600,
-    "min_height": 100
+  "name": "QuasiSprite",
+  "version": "2.0.0",
+  "main": "app/js/main.js",
+  "author": "Quasi",
+  "description": "Spritesheet Config",
+  "license": "MIT",
+  "dependencies": {
+    "pixi.js": "^4.2.2",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
   },
-  "author": "Quasi"
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "electron": "^1.4.6",
+    "electron-builder": "^8.5.3"
+  },
+  "scripts": {
+    "compile-babel": "babel app -d compiled --copy-files -i node_modules,style.less",
+    "compile": "npm run compile-babel",
+    "build": "npm run compile && build -w --x64 "
+  },
+  "build": {
+    "win": {
+      "target": "dir",
+      "icon": "app/imgs/icon.ico"
+    }
+  },
+  "directories": {
+    "app": "compiled"
+  }
 }

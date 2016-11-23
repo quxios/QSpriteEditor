@@ -2,76 +2,15 @@
 <html>
 	<head>
 		<title>Sprite Animation Editor</title>
-		<script src="js/pixi.js"></script>
-		<script src="js/jquery-3.1.0.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" href="css/style.css">
 	</head>
   <body oncontextmenu="return false;">
-		<input id="fileWindow" type="file" style="display: none;" accept=".json">
-		<input id="saveWindow" type="file" style="display: none;" accept=".json" nwsaveas="SpriteAnim.json">
-		<div id="contextMenu">
-			<span>Duplicate</span>
-			<span>Delete</span>
-		</div>
-		<div id="menuBar">
-			<div id="menuHover"></div>
-			<img id="newFile" class="menuItem" src="imgs/appbar.page.new.png">
-			<img id="loadFile" class="menuItem" src="imgs/appbar.page.download.png">
-			<img id="saveFile" class="menuItem" src="imgs/appbar.page.upload.png">
-		</div>
-		<div id="toolsWrapper" style="display: none;">
-			<div id="configurations">
-				<div id="configList">
-
-				</div>
-				<div  id="addConfig" class="button">Add New</div>
-			</div>
-
-			<div id="settings" style="display: none;">
-				<div id="settingsSettings">
-					<div id="backFromPose" class="button">Back</div>
-					<h2 class="no-span">
-						Settings
-					</h2>
-					<label style="float: left; width: 80px;">Name</label>
-					<input id="configName" style="width: 100px; margin-bottom: 5px;" type="text"><br>
-					<label>Sample Image</label>
-					<input id="imgWindow" style="margin-bottom: 5px;" type="file" accept="image/*"><br>
-					<label style="float: left; width: 80px;">Columns</label>
-					<input id="columns" style="width: 100px; margin-bottom: 5px;" type="text"><br>
-					<label style="float: left; width: 80px;">Rows</label>
-					<input id="rows" style="width: 100px; margin-bottom: 5px;" type="text">
-					<label style="float: left; width: 80px;">Anchor X</label>
-					<input id="anchorX" style="width: 100px; margin-bottom: 5px;" type="text">
-					<label style="float: left; width: 80px;">Anchor Y</label>
-					<input id="anchorY" style="width: 100px; margin-bottom: 5px;" type="text">
-					<h2 class="no-span">
-						Poses
-					</h2>
-				</div>
-				<div id="poseList" style="margin-bottom: 5px; overflow: auto;">
-
-				</div>
-				<div id="addPose" class="button">Add New</div>
-			</div>
-
-			<div id="poseSetting" style="display: none;">
-				<div id="backFromSettings" class="button">Back</div>
-				<h2 class="no-span">
-					Settings
-				</h2>
-				<label style="float: left; width: 80px;">Name</label>
-				<input id="poseName" style="width: 100px; margin-bottom: 5px;" type="text"><br>
-				<label style="float: left; width: 80px;">Speed</label>
-				<input id="poseSpeed" style="width: 100px; margin-bottom: 5px;" type="text">
-				<label style="float: left; width: 80px;">Adjust?</label>
-				<input id="poseAdjust" style="width: 100px; margin-bottom: 8px;" type="checkbox">
-				<label style="float: left; width: 80px;">Pattern</label>
-				<input id="posePattern" style="width: 100px; margin-bottom: 5px;" type="text">
-			</div>
-
-		</div>
-		<canvas id="pixiCanvas" style="position: absolute; top: 50px; left: 0;"></canvas>
-		<script src="js/main.js"></script>
+		<div id="app"></div>
+		<script>
+			if (process.env.PRODUCTION === 'false') {
+				require('babel-register')
+			}
+			require('./js/app')
+		</script>
 	</body>
 </html>
