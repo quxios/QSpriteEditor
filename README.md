@@ -6,12 +6,17 @@
 1. Download or Clone the repo
 2. Open command prompt and cd to the folder containing package.json ( not the package.json inside the app folder! )
 3. Install the dependencies by using the cli
-...`npm install`
+
+ `npm install`
 4. Run the app with electron by using the cli
-...`electron .`
-...( That's assuming you're in the package.json directory, if not cd to that directory )
-...or with dev tools run
-...`electron . --dev`
+
+ `electron .`
+ 
+ ( That's assuming you're in the package.json directory, if not cd to that directory )
+ 
+ or with dev tools run
+ 
+ `electron . --dev`
 
 **From download**
 
