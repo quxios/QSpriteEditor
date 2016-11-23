@@ -2,35 +2,44 @@
 
 ## How to run
 **With Electron**
+
 1. Download or Clone the repo
 2. Open command prompt and cd to the folder containing package.json ( not the package.json inside the app folder! )
 3. Install the dependencies by using the cli
-`npm install`
+...`npm install`
 4. Run the app with electron by using the cli
-`electron .`
-( That's assuming you're in the package.json directory, if not cd to that directory )
-or with dev tools run
-`electron . --dev`
+...`electron .`
+...( That's assuming you're in the package.json directory, if not cd to that directory )
+...or with dev tools run
+...`electron . --dev`
 
 **From download**
+
 Run the QuasiSprite shortcut or .exe
 
 ## Building
 Two Scripts are included to build:
+
 `build64` and `build32` will build for Windows 64bit and 32bit
+
 To use, run the cli
+
 `npm run build64` or `npm run build32`
+
 ( That's assuming you're in the package.json directory, if not cd to that directory )
 
 ## Prebuilt
 Version 2.0.0
-* Windows - [32bit](https://www.dropbox.com/s/401w0e6yl28iegm/SpriteAnimator32.rar?dl=0),[64bit](https://www.dropbox.com/s/hrxe4cbmpf4849o/SpriteAnimator.rar?dl=0)
+
+* Windows - [32bit](https://www.dropbox.com/s/401w0e6yl28iegm/SpriteAnimator32.rar?dl=0), [64bit](https://www.dropbox.com/s/hrxe4cbmpf4849o/SpriteAnimator.rar?dl=0)
 
 ## Instructions
 **Creating a Config**
+
 After you have created a new file or loaded an existing file. Click on the “Add New” button at the bottom to create a new config.
 
 **Setting up a Config**
+
 Once you select a configuration you should see something like:
 
 ![2016-08-27 20_14_36-sprite animation editor](https://cloud.githubusercontent.com/assets/9346563/18031381/fbcbb118-6c92-11e6-8630-b7e46c67e03e.png)
