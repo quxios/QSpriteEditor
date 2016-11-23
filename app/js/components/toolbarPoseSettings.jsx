@@ -51,7 +51,7 @@ export default class extends React.Component {
   }
   onPatternChange(e) {
     let pattern = e.target.value;
-    if (/^[0-9,-]+$/.test(pattern)) {
+    if (/^[0-9,-]*$/.test(pattern)) {
       this.setState({ pattern })
       Manager.changePosePattern(pattern);
     }
