@@ -22,7 +22,8 @@
   "scripts": {
     "compile-babel": "babel app -d compiled --copy-files -i node_modules,style.less",
     "compile": "npm run compile-babel",
-    "build": "npm run compile && build -w --x64 "
+    "build-64": "npm run compile && build -w --x64",
+    "build-32": "npm run compile && build -w --ia32"
   },
   "build": {
     "win": {
