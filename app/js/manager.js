@@ -273,8 +273,8 @@ export default class {
     pose.adjust = bool;
     this.emit('UPDATE_POSE', this.getCurrentPose());
   }
-  static changePosePattern(pattern, emit) {
-    const valid = this.validPattern(pattern);
+  static changePosePattern(pattern, emit = false) {
+    let valid = this.validPattern(pattern);
     if (valid) {
       let pose = this.state.json[this.state.config].poses[this.state.pose];
       let match = /^([0-9]+)-([0-9]+)$/.exec(pattern);
@@ -283,6 +283,7 @@ export default class {
         for (let i = Number(match[1]); i <= Number(match[2]); i++) {
           pose.pattern.push(i);
         }
+        valid = emit;
       } else {
         pose.pattern = pattern.split(',').map(Number)
       }
