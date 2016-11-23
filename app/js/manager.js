@@ -295,7 +295,7 @@ export default class {
   }
   static validPattern(pattern) {
     let match1 = /^([0-9]+)-([0-9]+)$/.exec(pattern);
-    let match2 = /^([0-9]+(,[0-9])*)$/.test(pattern);
+    let match2 = /^([0-9]+(,[0-9]+)*)$/.test(pattern);
     let {cols, rows} = this.getCurrentConfig();
     let maxI = cols * rows;
     if (match1) {
