@@ -20,18 +20,18 @@ Run the QuasiSprite shortcut or .exe
 ## Building
 Two Scripts are included to build:
 
-`build64` and `build32` will build for Windows 64bit and 32bit
+`build-64` and `build-32` will build for Windows 64bit and 32bit
 
 To use, run the cli
 
-`npm run build64` or `npm run build32`
+`npm run build-64` or `npm run build-32`
 
 ( That's assuming you're in the package.json directory, if not cd to that directory )
 
 ## Prebuilt
 Version 2.0.0
 
-* Windows - [32bit](https://www.dropbox.com/s/401w0e6yl28iegm/SpriteAnimator32.rar?dl=0), [64bit](https://www.dropbox.com/s/hrxe4cbmpf4849o/SpriteAnimator.rar?dl=0)
+* Windows - [32bit](https://www.dropbox.com/s/63qy0cf2az5glox/SpriteAnimator32.rar?dl=0), [64bit](https://www.dropbox.com/s/3zkbyd9znwsp5cw/SpriteAnimator.rar?dl=0)
 
 ## Instructions
 **Creating a Config**
