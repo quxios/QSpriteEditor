@@ -11,11 +11,11 @@
 4. Run the app with electron by using the cli
 
  `electron .`
- 
+
  ( That's assuming you're in the package.json directory, if not cd to that directory )
- 
+
  or with dev tools run
- 
+
  `electron . --dev`
 
 **From download**
@@ -34,9 +34,9 @@ To use, run the cli
 ( That's assuming you're in the package.json directory, if not cd to that directory )
 
 ## Prebuilt
-Version 2.0.0
+Version 2.0.2
 
-* Windows - [32bit](https://www.dropbox.com/s/63qy0cf2az5glox/SpriteAnimator32.rar?dl=0), [64bit](https://www.dropbox.com/s/3zkbyd9znwsp5cw/SpriteAnimator.rar?dl=0)
+* Windows - [32bit](https://www.dropbox.com/s/pkln8arrn8n1emv/SpriteAnimator32.rar?dl=0), [64bit](https://www.dropbox.com/s/rd25v40c5i4sczk/SpriteAnimator.rar?dl=0)
 
 ## Instructions
 **Creating a Config**
