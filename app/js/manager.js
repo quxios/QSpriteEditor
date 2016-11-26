@@ -262,6 +262,7 @@ export default class {
     if (valid) {
       let pose = this.state.json[this.state.config].poses[this.state.pose];
       pose.speed = Number(speed);
+      this.emit('SET_ANIMATED', pose.pattern, pose.speed);
     }
     if (valid || emit) {
       this.emit('UPDATE_POSE', this.getCurrentPose());
@@ -287,7 +288,7 @@ export default class {
       } else {
         pose.pattern = pattern.split(',').map(Number)
       }
-      this.emit('SET_ANIMATED_PATTERN', pose.pattern);
+      this.emit('SET_ANIMATED', pose.pattern, pose.speed);
     }
     if (valid || emit) {
       this.emit('UPDATE_POSE', this.getCurrentPose());

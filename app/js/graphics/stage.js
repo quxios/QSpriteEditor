@@ -94,9 +94,6 @@ export default class extends PIXI.Container {
       this.animatedSprite.cols = newConfig.cols;
       this.animatedSprite.rows = newConfig.rows;
     }
-    if (this.config.speed !== newConfig.speed) {
-      this.animatedSprite.speed = newConfig.speed;
-    }
     if (this.config.anchorX !== newConfig.anchorX || this.config.anchorY !== newConfig.anchorY) {
       this.spriteSheet.drawAnchor(newConfig.cols, newConfig.rows, newConfig.anchorX, newConfig.anchorY);
     }

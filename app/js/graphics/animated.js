@@ -10,8 +10,9 @@ export default class extends PIXI.Sprite {
     this.pattern = [];
     this.tick = 0;
     this.frame = 0;
-    Manager.on('SET_ANIMATED_PATTERN', (pattern) => {
+    Manager.on('SET_ANIMATED', (pattern, speed) => {
       this.pattern = pattern;
+      this.speed = speed || 15;
     })
     Manager.on('SET_ANIMATED_ALPHA', (alpha) => {
       this.alpha = alpha;
@@ -19,9 +20,6 @@ export default class extends PIXI.Sprite {
         this.updateFrame();
       }
     })
-  }
-  setPattern(pattern) {
-    this.pattern = pattern;
   }
   update() {
     if (this.alpha === 0) return;
