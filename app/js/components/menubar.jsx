@@ -53,9 +53,9 @@ export default class extends React.Component {
     }
     return (
       <div className="menubar">
-        <button onClick={this.onNew.bind(this)} className='pointer'>New</button>
-        <button onClick={this.onLoad.bind(this)} className='pointer'>Load</button>
-        <button onClick={this.onSave.bind(this)} className={saveClass}>Save</button>
+        <button onClick={::this.onNew} className='pointer'>New</button>
+        <button onClick={::this.onLoad} className='pointer'>Load</button>
+        <button onClick={::this.onSave} className={saveClass}>Save</button>
       </div>
     )
   }

@@ -14,8 +14,8 @@ export default class extends React.Component {
       path: '',
       height: ipcRenderer.sendSync('getContentSize')[1] - 34
     }
-    this.onResize = this.onResize.bind(this);
-    this.onUpdatePath = this.onUpdatePath.bind(this);
+    this.onResize = ::this.onResize;
+    this.onUpdatePath = ::this.onUpdatePath;
   }
   componentWillMount() {
     ipcRenderer.on('resize', this.onResize);

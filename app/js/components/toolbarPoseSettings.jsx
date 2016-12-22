@@ -10,7 +10,7 @@ export default class extends React.Component {
       adjust: false,
       pattern: ""
     }
-    this.updatePose = this.updatePose.bind(this);
+    this.updatePose = ::this.updatePose;
   }
   componentWillMount() {
     Manager.on('UPDATE_POSE', this.updatePose);
@@ -49,6 +49,9 @@ export default class extends React.Component {
       e.target.classList.add('error');
     }
   }
+  onAdjustChange(e) {
+    Manager.changePoseAdjust(e.target.checked);
+  }
   onPatternChange(e) {
     let pattern = e.target.value;
     if (/^[0-9,-]*$/.test(pattern)) {
@@ -79,28 +82,32 @@ export default class extends React.Component {
         <div className='item'>
           <label>Name</label>
           <input type='text'
-            onChange={this.onNameChange.bind(this)}
-            onKeyDown={this.checkEnter.bind(this)}
-            onBlur={this.submitName.bind(this)}
+            onChange={::this.onNameChange}
+            onKeyDown={::this.checkEnter}
+            onBlur={::this.submitName}
             value={name} />
         </div>
         <div className='item'>
           <label>Speed</label>
           <input type='text'
-            onChange={this.onSpeedChange.bind(this)}
-            onKeyDown={this.checkEnter.bind(this)}
-            onBlur={this.submitSpeed.bind(this)}
+            onChange={::this.onSpeedChange}
+            onKeyDown={::this.checkEnter}
+            onBlur={::this.submitSpeed}
             value={speed} />
         </div>
         <div className='item'>
           <label>Adjust</label>
+          <input
+            type='checkbox'
+            onChange={::this.onAdjustChange}
+          />
         </div>
         <div className='item'>
           <label>Pattern</label>
           <input type='text'
-            onChange={this.onPatternChange.bind(this)}
-            onKeyDown={this.checkEnter.bind(this)}
-            onBlur={this.submitPattern.bind(this)}
+            onChange={::this.onPatternChange}
+            onKeyDown={::this.checkEnter}
+            onBlur={::this.submitPattern}
             value={pattern}
              />
         </div>

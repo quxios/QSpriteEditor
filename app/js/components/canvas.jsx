@@ -13,9 +13,9 @@ export default class extends React.Component {
       left: 0
     }
     this.config = {};
-    this.onResize = this.onResize.bind(this);
-    this.onLoaded = this.onLoaded.bind(this);
-    this.updatePIXI = this.updatePIXI.bind(this);
+    this.onResize = ::this.onResize;
+    this.onLoaded = ::this.onLoaded;
+    this.updatePIXI = ::this.updatePIXI;
   }
   componentWillMount() {
     ipcRenderer.on('resize', this.onResize);
@@ -61,7 +61,7 @@ export default class extends React.Component {
       <canvas
         ref='pixiCanvas'
         style={style}
-        onWheel={this.onWheel.bind(this)}>
+        onWheel={::this.onWheel}>
       </canvas>
     )
   }

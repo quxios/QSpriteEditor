@@ -12,7 +12,7 @@ class Settings extends React.Component {
       anchorX: 0.5,
       anchorY: 1
     }
-    this.updateConfig = this.updateConfig.bind(this);
+    this.updateConfig = ::this.updateConfig;
   }
   componentWillMount() {
     Manager.on('UPDATE_CONFIG', this.updateConfig);
@@ -115,9 +115,9 @@ class Settings extends React.Component {
         <div className='item'>
           <label>Name</label>
           <input type='text'
-            onChange={this.onNameChange.bind(this)}
-            onKeyDown={this.checkEnter.bind(this)}
-            onBlur={this.submitName.bind(this)}
+            onChange={::this.onNameChange}
+            onKeyDown={::this.checkEnter}
+            onBlur={::this.submitName}
             value={name} />
         </div>
         <div className='item'>
@@ -127,41 +127,41 @@ class Settings extends React.Component {
           <input type="file"
             id="sampleImg"
             accept="image/*"
-            onChange={this.onImgChange.bind(this)} />
-          <button className='pointer' onClick={this.openFile.bind(this)}>
+            onChange={::this.onImgChange} />
+          <button className='pointer' onClick={::this.openFile}>
             Select File
           </button>
         </div>
         <div className='item'>
           <label>Columns</label>
           <input type='text'
-            onChange={this.onColChange.bind(this)}
-            onKeyDown={this.checkEnter.bind(this)}
-            onBlur={this.submitCols.bind(this)}
+            onChange={::this.onColChange}
+            onKeyDown={::this.checkEnter}
+            onBlur={::this.submitCols}
             value={cols} />
         </div>
         <div className='item'>
           <label>Rows</label>
           <input type='text'
-            onChange={this.onRowChange.bind(this)}
-            onKeyDown={this.checkEnter.bind(this)}
-            onBlur={this.submitRows.bind(this)}
+            onChange={::this.onRowChange}
+            onKeyDown={::this.checkEnter}
+            onBlur={::this.submitRows}
             value={rows} />
         </div>
         <div className='item'>
           <label>Anchor X</label>
           <input type='text'
-            onChange={this.onAnchorXChange.bind(this)}
-            onKeyDown={this.checkEnter.bind(this)}
-            onBlur={this.submitAnchorX.bind(this)}
+            onChange={::this.onAnchorXChange}
+            onKeyDown={::this.checkEnter}
+            onBlur={::this.submitAnchorX}
             value={anchorX} />
         </div>
         <div className='item'>
           <label>Anchor Y</label>
           <input type='text'
-            onChange={this.onAnchorYChange.bind(this)}
-            onKeyDown={this.checkEnter.bind(this)}
-            onBlur={this.submitAnchorY.bind(this)}
+            onChange={::this.onAnchorYChange}
+            onKeyDown={::this.checkEnter}
+            onBlur={::this.submitAnchorY}
             value={anchorY} />
         </div>
       </div>
@@ -176,8 +176,8 @@ class PoseList extends React.Component {
       list: [],
       selected: ''
     }
-    this.updatePoses = this.updatePoses.bind(this);
-    this.onContextVisible = this.onContextVisible.bind(this);
+    this.updatePoses = ::this.updatePoses;
+    this.onContextVisible = ::this.onContextVisible;
   }
   componentDidMount() {
     Manager.on('UPDATE_POSELIST', this.updatePoses);
@@ -197,9 +197,10 @@ class PoseList extends React.Component {
     Manager.setToolPath('poseSettings');
   }
   onMouseEnter(item) {
-    const pattern = Manager.getCurrentConfig().poses[item].pattern;
-    Manager.emit('SET_ANIMATED_PATTERN', pattern);
+    const pose = Manager.getCurrentConfig().poses[item];
+    Manager.emit('SET_ANIMATED', pose.pattern, pose.speed);
     Manager.emit('SET_ANIMATED_ALPHA', 1);
+
   }
   onMouseLeave() {
     Manager.emit('SET_ANIMATED_ALPHA', 0);
@@ -265,7 +266,7 @@ export default class extends React.Component {
         </div>
         <PoseList height={this.props.height} />
         <div className='footer'>
-          <button onClick={Manager.addNewPose.bind(Manager)} >Add New</button>
+          <button onClick={Manager::Manager.addNewPose} >Add New</button>
         </div>
       </div>
     )

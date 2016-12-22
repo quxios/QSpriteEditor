@@ -13,10 +13,10 @@ export default class ContextMenu extends React.Component {
       width: ipcRenderer.sendSync('getContentSize')[0],
       height: ipcRenderer.sendSync('getContentSize')[1]
     }
-    this.setItems = this.setItems.bind(this);
-    this.setPosition = this.setPosition.bind(this);
-    this.setVisible = this.setVisible.bind(this);
-    this.onResize = this.onResize.bind(this);
+    this.setItems = ::this.setItems;
+    this.setPosition = ::this.setPosition;
+    this.setVisible = ::this.setVisible;
+    this.onResize = ::this.onResize;
   }
   componentWillMount() {
     Manager.on('SET_CONTEXT_ITEMS', this.setItems);
@@ -60,7 +60,7 @@ export default class ContextMenu extends React.Component {
         <div
           className='veil'
           style={veilStyle}
-          onClick={this.onVeilClick.bind(this)}>
+          onClick={::this.onVeilClick}>
         </div>
         <div className='contextMenu' style={style}>
           {items}

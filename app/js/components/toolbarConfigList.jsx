@@ -8,8 +8,8 @@ export default class extends React.Component {
       list: [],
       selected: ''
     }
-    this.updateJson = this.updateJson.bind(this);
-    this.onContextVisible = this.onContextVisible.bind(this);
+    this.updateJson = ::this.updateJson;
+    this.onContextVisible = ::this.onContextVisible;
   }
   componentWillMount() {
     Manager.on('UPDATE_JSON', this.updateJson);
@@ -77,7 +77,7 @@ export default class extends React.Component {
           {list}
         </div>
         <div className='footer'>
-          <button onClick={Manager.addNewConfig.bind(Manager)}>Add New</button>
+          <button onClick={Manager::Manager.addNewConfig}>Add New</button>
         </div>
       </div>
     )

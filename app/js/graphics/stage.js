@@ -13,10 +13,10 @@ export default class extends PIXI.Container {
     this.createSpritesheet();
     this.createAnimatedSprite();
     this.config = {};
-    this.onResize = this.onResize.bind(this);
-    this.onLoaded = this.onLoaded.bind(this);
-    this.onUpdateConfig = this.onUpdateConfig.bind(this);
-    this.onUpdatePath = this.onUpdatePath.bind(this);
+    this.onResize = ::this.onResize;
+    this.onLoaded = ::this.onLoaded;
+    this.onUpdateConfig = ::this.onUpdateConfig;
+    this.onUpdatePath = ::this.onUpdatePath;
     this.addListeners();
   }
   createNotLoadedText() {
