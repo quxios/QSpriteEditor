@@ -20,7 +20,7 @@
 
 **From download**
 
-Run the QuasiSprite shortcut or .exe
+Run the QuasiSprite shortcut or .exe in the app folder
 
 ## Building
 Two Scripts are included to build:
@@ -35,10 +35,12 @@ To use, run the cli
 
 ## Prebuilt
 
-Version 2.0.2
+Version 2.0.3
 
-* Windows - [32bit](https://www.dropbox.com/s/pkln8arrn8n1emv/SpriteAnimator32.rar?dl=0), [64bit](https://www.dropbox.com/s/rd25v40c5i4sczk/SpriteAnimator.rar?dl=0)
+* Windows - [32bit](https://www.dropbox.com/s/pkln8arrn8n1emv/SpriteAnimator32.rar?dl=0),
+[64bit](https://www.dropbox.com/s/rd25v40c5i4sczk/SpriteAnimator.rar?dl=0)
 
+( If not sure which to get, get the 32bit )
 
 ## Instructions
 **Creating a Config**
