@@ -1,8 +1,8 @@
 {
-  "name": "QuasiSprite",
+  "name": "QSprite_App",
   "version": "2.0.3",
   "main": "js/main.js",
-  "author": "Quasi",
+  "author": "Quxios",
   "description": "Spritesheet Config",
   "license": "MIT",
   "dependencies": {
