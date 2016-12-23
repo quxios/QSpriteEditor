@@ -6,7 +6,9 @@ export default class {
     config: '',
     pose: '',
     toolpath: '',
-    filePath: ''
+    filePath: '',
+    poseScrollTop: 0,
+    configScrollTop: 0
   };
   static on(action, callback) {
     if (!this.listeners[action]) {
@@ -46,6 +48,18 @@ export default class {
   static setPose(pose) {
     this.state.pose = pose;
     this.emit('UPDATE_POSENAME', pose);
+  }
+  static setConfigScrollTop(value) {
+    this.state.configScrollTop = value;
+  }
+  static getConfigScrollTop() {
+    return this.state.configScrollTop;
+  }
+  static setPoseScrollTop(value) {
+    this.state.poseScrollTop = value;
+  }
+  static getPoseScrollTop() {
+    return this.state.poseScrollTop;
   }
   static startNew() {
     this.state.json = {};

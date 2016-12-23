@@ -32,6 +32,7 @@ export default class extends React.Component {
     switch (path) {
       case 'Configs': {
         Manager.setToolPath('configList');
+        Manager.setPoseScrollTop(0);
         break;
       }
       case 'Settings': {

@@ -99,6 +99,7 @@ export default class extends React.Component {
           <label>Adjust</label>
           <input
             type='checkbox'
+            checked={adjust}
             onChange={::this.onAdjustChange}
           />
         </div>

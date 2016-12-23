@@ -35,7 +35,7 @@ To use, run the cli
 
 ## Prebuilt
 
-Version 2.0.3
+Version 2.0.4
 
 * Windows - [32bit](https://www.dropbox.com/s/pkln8arrn8n1emv/SpriteAnimator32.rar?dl=0),
 [64bit](https://www.dropbox.com/s/rd25v40c5i4sczk/SpriteAnimator.rar?dl=0)

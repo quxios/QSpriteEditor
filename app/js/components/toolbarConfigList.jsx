@@ -11,7 +11,7 @@ export default class extends React.Component {
     this.updateJson = ::this.updateJson;
     this.onContextVisible = ::this.onContextVisible;
   }
-  componentWillMount() {
+  componentDidMount() {
     Manager.on('UPDATE_JSON', this.updateJson);
     Manager.on('SET_CONTEXT_VISIBLE', this.onContextVisible);
     Manager.emit('UPDATE_JSON', Manager.state.json);
@@ -20,10 +20,24 @@ export default class extends React.Component {
     Manager.remove('UPDATE_JSON', this.updateJson);
     Manager.remove('SET_CONTEXT_VISIBLE', this.onContextVisible);
     Manager.remove('HIDE_CONTEXT', this.onHideContext);
+    Manager.setConfigScrollTop(this.divList.scrollTop);
+  }
+  componentDidUpdate() {
+    if (this.scrollToBottom) {
+      this.divList.scrollTop = this.divList.scrollHeight;
+      this.scrollToBottom = false;
+    }
+    if (!this.scrollSet) {
+      this.divList.scrollTop = Manager.getConfigScrollTop();
+      this.scrollSet = true;
+    }
   }
   updateJson(json) {
     let list = Object.keys(json);
     this.setState({ list });
+    if (list.length > this.state.list.length) {
+      this.scrollToBottom = true;
+    }
   }
   onClick(item) {
     Manager.setConfig(item);
@@ -73,7 +87,7 @@ export default class extends React.Component {
     })
     return (
       <div>
-        <div style={listStyle}>
+        <div style={listStyle} ref={(div) => { this.divList = div; }}>
           {list}
         </div>
         <div className='footer'>

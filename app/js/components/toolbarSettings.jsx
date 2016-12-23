@@ -187,10 +187,24 @@ class PoseList extends React.Component {
   componentWillUnmount() {
     Manager.remove('UPDATE_POSELIST', this.updatePoses);
     Manager.remove('SET_CONTEXT_VISIBLE', this.onContextVisible);
+    Manager.setPoseScrollTop(this.divList.scrollTop);
+  }
+  componentDidUpdate() {
+    if (this.scrollToBottom) {
+      this.divList.scrollTop = this.divList.scrollHeight;
+      this.scrollToBottom = false;
+    }
+    if (!this.scrollSet) {
+      this.divList.scrollTop = Manager.getPoseScrollTop();
+      this.scrollSet = true;
+    }
   }
   updatePoses(poses) {
     let list = Object.keys(poses);
     this.setState({ list })
+    if (list.length > this.state.list.length) {
+      this.scrollToBottom = true;
+    }
   }
   onClick(item) {
     Manager.setPose(item);
@@ -200,7 +214,6 @@ class PoseList extends React.Component {
     const pose = Manager.getCurrentConfig().poses[item];
     Manager.emit('SET_ANIMATED', pose.pattern, pose.speed);
     Manager.emit('SET_ANIMATED_ALPHA', 1);
-
   }
   onMouseLeave() {
     Manager.emit('SET_ANIMATED_ALPHA', 0);
@@ -249,7 +262,7 @@ class PoseList extends React.Component {
       </div>);
     })
     return (
-      <div style={listStyle}>
+      <div style={listStyle} ref={(div) => { this.divList = div; }} >
         {list}
       </div>
     )

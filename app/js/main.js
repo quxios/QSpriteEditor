@@ -56,7 +56,12 @@ function createWindow () {
     [winData.x, winData.y] = win.getPosition()
   })
 
-  win.openDevTools()
+  win.webContents.openDevTools({
+    detach: true
+  })
+  win.webContents.once('devtools-opened', () => {
+    win.focus()
+  })
 }
 
 app.on('ready', start)
