@@ -1,3 +1,6 @@
+import { ipcRenderer } from 'electron'
+import fs from 'fs'
+
 export default class {
   static listeners = {};
   static state = {
@@ -6,7 +9,7 @@ export default class {
     config: '',
     pose: '',
     toolpath: '',
-    filePath: '',
+    filePath: ipcRenderer.sendSync('getDefaultPath'),
     poseScrollTop: 0,
     configScrollTop: 0
   };
@@ -65,9 +68,11 @@ export default class {
     this.state.json = {};
     this.start();
   }
-  static loadJson(json) {
+  static loadFile(fileName) {
+    let json = JSON.parse(fs.readFileSync(fileName, 'utf8'));
     if (this.validJson(json)) {
       this.state.json = json;
+      this.state.filePath = fileName;
       this.start();
       return true;
     }
@@ -102,9 +107,18 @@ export default class {
     this.emit('SET_CONTEXT_POS', y, x);
     this.emit('SET_CONTEXT_VISIBLE', true);
   }
+  static configLength() {
+    var length = 0;
+    for (let key in this.state.json) {
+      if (this.state.json.hasOwnProperty(key)) {
+        length++;
+      }
+    }
+    return length;
+  }
   static addNewConfig() {
+    let i = this.configLength();
     let id;
-    let i = 0;
     while (true) {
       id = "Config" + i;
       if (this.state.json.hasOwnProperty(id)) {
@@ -114,6 +128,7 @@ export default class {
       }
     }
     this.state.json[id] = {
+      id: i,
       cols: 1,
       rows: 1,
       anchorX: 0.5,
@@ -127,7 +142,7 @@ export default class {
     return {
       name: this.state.config,
       ...this.state.json[this.state.config]
-    };
+    }
   }
   static duplicateConfig(name) {
     let id;
@@ -140,7 +155,10 @@ export default class {
         break;
       }
     }
-    this.state.json[id] = { ...this.state.json[name] };
+    this.state.json[id] = {
+      ...this.state.json[name],
+      id: this.configLength()
+     }
     this.emit('UPDATE_JSON', this.state.json);
   }
   static deleteConfig(name) {
@@ -164,6 +182,7 @@ export default class {
     return valid;
   }
   static changeConfigSampleImg(path) {
+    path = path.replace('#', '%23');
     this.state.json[this.state.config].sampleImg = path;
     this.emit('UPDATE_CONFIG', this.getCurrentConfig());
   }
@@ -206,6 +225,16 @@ export default class {
       this.emit('UPDATE_CONFIG', this.getCurrentConfig());
     }
     return valid;
+  }
+  static poseListLength() {
+    var length = 0;
+    let current = this.getCurrentConfig();
+    for (let key in current.poses) {
+      if (this.state.json.hasOwnProperty(key)) {
+        length++;
+      }
+    }
+    return length;
   }
   static addNewPose() {
     let i = 0;

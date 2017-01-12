@@ -81,3 +81,11 @@ app.on('activate', () => {
 ipcMain.on('getContentSize', (e) => {
   e.returnValue = win.getContentSize()
 })
+
+ipcMain.on('getDefaultPath', (e) => {
+  e.returnValue = winData.defaultPath || '';
+})
+
+ipcMain.on('setDefaultPath', (e, path) => {
+  winData.defaultPath = path;
+})
