@@ -20,11 +20,11 @@ export default class extends React.Component {
   }
   onLoad() {
     remote.dialog.showOpenDialog({
-      defaultPath: Manager.state.filePath,
       filters: [{ name: 'json', extensions: ['json'] }]
     }, (fileNames) => {
       if (!fileNames) return;
-      if (!Manager.loadFile(fileNames[0])) {
+      let json = JSON.parse(fs.readFileSync(fileNames[0], 'utf8'));
+      if (!Manager.loadJson(json)) {
         alert('ERROR: Invalid JSON file.');
       }
     })
@@ -32,7 +32,6 @@ export default class extends React.Component {
   onSave() {
     if (this.state.loaded) {
       remote.dialog.showSaveDialog({
-        defaultPath: Manager.state.filePath,
         filters: [{ name: 'json', extensions: ['json'] }]
       }, (fileName) => {
         if (fileName) {
