@@ -1,15 +1,29 @@
-// out: style.css
+// out: style.css, compress: true
+
+@import "Roboto/roboto.css";
+@import "font-awesome/css/font-awesome.min.css";
+@import (less, reference) "font-awesome/css/font-awesome.min.css";
 
 @dark: #1F1F1F;
 @dark-text: #1F1F1F;
-@light: #FAFAFA;
+@light: #FFFFFF;
+@light-secondary: #FAFAFA;
 @light-text: #9E9E9E;
 @light-border: #E0E0E0;
 @light-highlight: #03A9F4;
 @light-disabled: #F44336;
 
+html {
+	height: 100%;
+	width: 100%;
+}
 body {
+	height: 100%;
+	width: 100%;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
 	color: @dark-text;
+	background-color: @dark;
 	padding: 0;
 	margin: 0;
 	-webkit-user-select: none;
@@ -25,84 +39,169 @@ body {
   background: @light-highlight;
 }
 .menubar {
+	z-index: 2;
 	background-color: @light;
 	border-bottom: 2px solid @light-border;
 	height: 32px;
 	line-height: 32px;
+	i {
+		padding-right: 5px;
+	}
 }
 .toolbar {
+	z-index: 1;
 	background-color: @light;
 	border-right: 2px solid @light-border;
-	width: 223px;
-	.padded {
-		padding: 5px;
-	}
-	.header, .footer {
-		height: 50px;
-		line-height: 50px;
-	}
-	.configItem {
-		padding: 5px 10px;
-		border-radius: 3px;
-		overflow: hidden;
-		height: 1em;
-		&:hover, &.selected {
-			background-color: @light-border;
-		}
-	}
-}
-.navi {
-	&:hover {
-		color: @light-text;
-	}
-	&.pointer:hover {
-		color: @light-highlight;
-	}
-}
-.header {
-	font-weight: bold;
-}
-.settings {
-	display: flex;
-	flex-direction: column;
-	.item {
-		width: 100%;
-		height: 26px;
-		line-height: 26px;
-		position: relative;
-		label {
-			float: left;
-			width: 90px;
-		}
-		input[type=text]{
-			width: 115px;
-			border: 1px solid @light-border;
-			border-radius: 3px;
-			padding: 3px;
-			box-sizing: border-box;
-			color: @light-text;
-			transition: all 200ms linear;
-			&:hover {
-				border-color: @light-highlight;
-				color: @dark-text;
-			}
-			&:focus {
-				color: @dark-text;
-				border-color: @light-highlight;
-				outline: none;
-				box-shadow: inset 0 0 2px @light-highlight;
-			}
-			&.error {
-				border-color: @light-disabled;
-				color: @light-disabled;
-				&:focus {
-					box-shadow: inset 0 0 2px @light-disabled;
+	width: 175px;
+	height: ~"calc(100% - 34px)";
+	box-sizing: border-box;
+	padding: 5px;
+	position: absolute;
+	transition: left 200ms;
+	&.props {
+		border-left: 2px solid @light-border;
+		border-right: none;
+		transition: right 200ms;
+		width: 225px;
+		.settings {
+			display: flex;
+			flex-direction: column;
+			.item {
+				width: 100%;
+				height: 26px;
+				line-height: 26px;
+				position: relative;
+				label {
+					float: left;
+					width: 100px;
+				}
+				input[type=text] {
+					width: ~"calc(100% - 100px)";
+					border: 1px solid @light-border;
+					border-radius: 3px;
+					padding: 3px;
+					box-sizing: border-box;
+					color: @light-text;
+					transition: all 200ms linear;
+					&:hover {
+						border-color: @light-highlight;
+						color: @dark-text;
+					}
+					&:focus {
+						color: @dark-text;
+						border-color: @light-highlight;
+						outline: none;
+						box-shadow: inset 0 0 2px @light-highlight;
+					}
+				}
+				button {
+					margin: 0;
+					border-width: 1px;
 				}
 			}
 		}
-		input[type=file] {
-			display: none;
+	}
+	&.pattern {
+		z-index: 2;
+		height: 175px;
+		width: ~"calc(100% - 350px)";
+		border-left: none;
+		border-top: 2px solid @light-border;
+		transition: bottom 200ms;
+		left: 350px;
+		ul {
+			height: 100%;
+			overflow-y: hidden;
+			overflow-x: auto;
+			white-space: nowrap;
+			li {
+				width: auto;
+				height: 100%;
+				display: inline-block;
+				position: relative;
+				padding: 0 10px;
+				img {
+					min-height: 100%;
+					max-height: 100%;
+				}
+				a {
+					position: absolute;
+					top: 5px;
+					left: 5px;
+				}
+			}
 		}
+	}
+	.header {
+		font-weight: bold;
+		height: 30px;
+		line-height: 30px;
+	}
+	.footer {
+		height: 50px;
+		line-height: 50px;
+	}
+	ul {
+		height: ~"calc(100% - 30px - 50px + 10px)";
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		overflow-y: auto;
+		overflow-x: hidden;
+		li {
+			padding: 5px 10px;
+			overflow: hidden;
+			a {
+				display: block;
+				width: 100%;
+			}
+			&:hover {
+				cursor: pointer;
+				background-color: @light-highlight !important;
+			}
+			&.selected {
+				background-color: @light-border;
+				.handle {
+					&:extend(.fa, .fa-square all);
+					padding-right: 5px;
+				}
+			}
+			&.contextSelected {
+				background-color: lighten(@light-highlight, 20%);
+			}
+			.handle {
+				&:extend(.fa, .fa-square-o all);
+				padding-right: 5px;
+				float: left;
+			}
+		}
+	}
+}
+.sortHelperList {
+	z-index: 2;
+	padding: 5px 15px;
+	list-style-type: none;
+	background-color: lighten(@light-highlight, 20%);
+	.handle {
+		&:extend(.fa, .fa-square all);
+		padding-right: 5px;
+	}
+}
+.sortHelperPattern {
+	z-index: 3;
+	list-style-type: none;
+	background-color: lighten(@light-highlight, 20%);
+	width: auto;
+	height: 100%;
+	padding: 5px 10px;
+	img {
+		min-height: 100%;
+		max-height: 100%;
+	}
+	a {
+		position: absolute;
+		top: 5px;
+		left: 5px;
 	}
 }
 .contextMenu {
@@ -110,7 +209,7 @@ body {
 	background-color: @light;
 	border: 1px solid @light-border;
 	padding: 5px 0;
-	z-index: 2;
+	z-index: 11;
 	.item {
 		padding: 2px 5px;
 		cursor: pointer;
@@ -123,18 +222,12 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 1;
-}
-.pointer {
-	cursor: pointer;
-}
-.disabled {
-	cursor: not-allowed;
-}
-.hidden {
-	display: none;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
 }
 button {
+	cursor: pointer;
 	height: 24px;
 	min-width: 60px;
 	margin: 0 5px;
@@ -147,14 +240,61 @@ button {
 		border-color: @light-highlight;
 		color: @light-highlight;
 	}
-}
-button.disabled {
-	&:hover {
-		border-color: @light-disabled;
-		color: @light-disabled;
+	&.disabled {
+		cursor: not-allowed;
+		&:hover {
+			border-color: @light-disabled;
+			color: @light-disabled;
+		}
+	}
+	i {
+		padding-right: 5px;
 	}
 }
-canvas {
+.pixi {
+	outline: none;
+	z-index: 0;
+	background-color: @dark;
 	position: absolute;
 	top: 34px;
+}
+.notifications {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 10;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	li {
+		background-color: @light;
+		pointer-events: all;
+		border-radius: 3px;
+		padding: 5px;
+		margin: 5px;
+		cursor: pointer;
+		white-space: pre-line;
+		width: auto;
+		max-width: ~"calc(100% - 10px)";
+		float: right;
+		clear: right;
+	}
+	.error {
+		background-color: @light-disabled;
+		&:hover {
+			background-color: lighten(@light-disabled, 20%);
+		}
+	}
+	.success {
+		background-color: @light-highlight;
+		&:hover {
+			background-color: lighten(@light-highlight, 20%);
+		}
+	}
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
 }

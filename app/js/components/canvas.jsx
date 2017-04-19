@@ -1,68 +1,93 @@
 import React from 'react'
-import Manager from '../manager'
-import {ipcRenderer} from 'electron'
-import * as PIXI from 'pixi.js'
-import Stage from '../graphics/stage'
+import Manager from './../manager'
+import { ipcRenderer, screen } from 'electron'
 
-export default class extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      width: ipcRenderer.sendSync('getContentSize')[0],
-      height: ipcRenderer.sendSync('getContentSize')[1],
-      left: 0
-    }
-    this.config = {};
-    this.onResize = ::this.onResize;
-    this.onLoaded = ::this.onLoaded;
-    this.updatePIXI = ::this.updatePIXI;
-  }
+import Stage from './../display/stage'
+
+const MENUBAR_HEIGHT = 34;
+
+export default class Canvas extends React.Component {
   componentWillMount() {
     ipcRenderer.on('resize', this.onResize);
-    Manager.on('LOADED', this.onLoaded);
+    window.addEventListener('mouseup', this.onMouseUp);
   }
   componentDidMount() {
-    this.setupPIXI();
-    requestAnimationFrame(this.updatePIXI);
-  }
-  setupPIXI() {
-    PIXI.utils.skipHello();
-    this.renderer = PIXI.autoDetectRenderer(this.state.width, this.state.height, {
-      view: this.refs.pixiCanvas,
-      backgroundColor: 0x1F1F1F,
+    let winSize = ipcRenderer.sendSync('getContentSize');
+    winSize[1] -= MENUBAR_HEIGHT;
+    this.renderer = Manager.renderer = new PIXI.WebGLRenderer(winSize[0], winSize[1], {
+      view: this.canvas,
+      transparent: true,
+      roundPixels: true,
       antialias: true
     })
-    this.stage = new Stage(this.state.width, this.state.height);
+    Manager.ticker = new PIXI.ticker.Ticker();
+    Manager.ticker.add(this.updatePIXI);
+    Manager.ticker.start();
+    Stage.onResize(winSize[0], winSize[1]);
   }
-  onResize(event, width, height) {
-    width = width - this.state.left;
-    this.setState({ width, height });
+  componentWillUnmount() {
+    ipcRenderer.removeListener('resize', this.onResize);
+    window.removeEventListener('mouseup', this.onMouseUp);
+    this.ticker = null;
+  }
+  updatePIXI = () => {
+    this.renderer.render(Stage);
+    Stage.update();
+    if (this._isDragging) {
+      this.updateDrag();
+    }
+  }
+  updateDrag() {
+    const { x, y } = screen.getCursorScreenPoint();
+    const dx = this._mouseX - x;
+    const dy = this._mouseY - y;
+    Stage.spriteSheet.x -= dx;
+    Stage.spriteSheet.y -= dy;
+    this._mouseX = x;
+    this._mouseY = y;
+  }
+  onResize = (event, width, height) => {
+    height -= MENUBAR_HEIGHT;
     this.renderer.resize(width, height);
+    Stage.onResize(width, height);
   }
-  onLoaded() {
-    this.setState({ left: 225 });
-    this.renderer.resize(this.state.width - 225, this.state.height);
+  onClick = (event) => {
+    this.canvas.focus();
   }
-  onWheel(event) {
-    let x = event.pageX - event.target.offsetLeft;
-    let y = event.pageY - event.target.offsetTop;
-    this.stage.onWheel(event.deltaY, x, y);
+  onMouseDown = (event) => {
+    if (this.props.currentConfig === -1) return;
+    if (event.button === 1 || event.button === 2) {
+      const { x, y } = screen.getCursorScreenPoint();
+      this._mouseX = x;
+      this._mouseY = y;
+      this._isDragging = true;
+      this._draggingWith = event.button;
+    }
   }
-  updatePIXI() {
-    this.stage.update();
-    this.renderer.render(this.stage);
-    requestAnimationFrame(this.updatePIXI);
+  onMouseUp = (event) => {
+    if (this.props.currentConfig === -1) return;
+    if (this._isDragging && event.button === this._draggingWith) {
+      this._isDragging = false;
+    }
+  }
+  onWheel = (event) => {
+    const x = event.clientX - event.target.offsetLeft;
+    const y = event.clientY - event.target.offsetTop;
+    Stage.zoomAt(x, y, event.deltaY);
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
   }
   render() {
-    let style = {
-      left: this.state.left,
-    }
     return (
       <canvas
-        ref='pixiCanvas'
-        style={style}
-        onWheel={::this.onWheel}>
-      </canvas>
+        className="pixi"
+        tabIndex="0"
+        ref={(ref) => { this.canvas = ref; }}
+        onClick={this.onClick}
+        onMouseDown={this.onMouseDown}
+        onWheel={this.onWheel}
+      />
     )
   }
 }
