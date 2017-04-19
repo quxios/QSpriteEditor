@@ -1,15 +1,15 @@
 import React from 'react'
 import Manager from '../manager'
 
-import { ListConfig } from './listToolbar'
+import { ListPose } from './listToolbar'
 
-export default class ConfigList extends React.Component {
+export default class PoseList extends React.Component {
   addNew = (e) => {
-    Manager.addConfig();
+    Manager.addPose();
     e.stopPropagation();
   }
   delete = (e) => {
-    Manager.deleteConfig(this.props.currentConfig)
+    Manager.deletePose(this.props.currentPose)
     e.stopPropagation();
   }
   delButton() {
@@ -20,20 +20,24 @@ export default class ConfigList extends React.Component {
       </button>
     )
   }
-  render() {
+  body() {
+    const style = {
+      height: '100%'
+    }
     const {
-      configs,
-      currentConfig,
+      pose,
+      currentPose,
       selectedContext
     } = this.props;
+    const poses = pose.poses;
     return (
-      <div className="toolbar list">
+      <div style={style}>
         <div className="header">
-          Configs
+          Poses
         </div>
-        <ListConfig
-          items={configs}
-          selected={currentConfig}
+        <ListPose
+          items={poses}
+          selected={currentPose}
           selectedContext={selectedContext}
         />
         <div className="footer">
@@ -41,8 +45,19 @@ export default class ConfigList extends React.Component {
             <i className="fa fa-plus" aria-hidden />
             New
           </button>
-          { currentConfig !== -1 && this.delButton() }
+          { currentPose !== -1 && this.delButton() }
         </div>
+      </div>
+    )
+  }
+  render() {
+    const { config } = this.props;
+    const style = {
+      left: config ? 175 : 0
+    }
+    return (
+      <div className="toolbar list" style={style}>
+        { config && this.body() }
       </div>
     )
   }

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Help</title>
+		<link rel="stylesheet" href="css/style.css">
+    <style>
+      body {
+        background-color: #ffffff;
+        padding: 5px;
+				overflow: auto;
+				overflow-x: hidden;
+				-webkit-user-select: text;
+      }
+			#help {
+				width: calc(100% - 30px);
+			}
+    </style>
+	</head>
+  <body>
+		<div id="help"></div>
+		<script>
+			var marked = require('marked');
+			var fs = require('fs');
+			var path = require('path');
+			var content = fs.readFileSync(path.join(__dirname, 'HELP.md'), 'utf8');
+			document.getElementById('help').innerHTML = marked(content);
+		</script>
+	</body>
+</html>

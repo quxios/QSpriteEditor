@@ -1,61 +1,48 @@
 import React from 'react'
 import Manager from '../manager'
-import {remote} from 'electron'
-import fs from 'fs'
+import { remote, ipcRenderer } from 'electron'
 
-export default class extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      loaded: false
-    }
-  }
-  componentWillMount() {
-    Manager.on('LOADED', () => {
-      this.setState({ loaded: true })
-    })
-  }
-  onNew() {
-    Manager.startNew();
-  }
-  onLoad() {
+export default class Menubar extends React.Component {
+  openLoad = () => {
     remote.dialog.showOpenDialog({
-      filters: [{ name: 'json', extensions: ['json'] }]
-    }, (fileNames) => {
-      if (!fileNames) return;
-      let json = JSON.parse(fs.readFileSync(fileNames[0], 'utf8'));
-      if (!Manager.loadJson(json)) {
-        alert('ERROR: Invalid JSON file.');
-      }
-    })
+      title: 'Open Project',
+      defaultPath: this.props.projectPath,
+      filters: [{
+        name: 'RPG Maker MV Project',
+        extensions: ['rpgproject'],
+      }]
+    }, ::Manager.startLoad);
   }
-  onSave() {
-    if (this.state.loaded) {
-      remote.dialog.showSaveDialog({
-        filters: [{ name: 'json', extensions: ['json'] }]
-      }, (fileName) => {
-        if (fileName) {
-          fs.writeFileSync(fileName, Manager.getJson());
-        }
-      })
-    }
+  openHelp = () => {
+    ipcRenderer.send('openHelp');
   }
-  doLoad() {
-
-  }
-  doSave() {
-
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.isLoaded !== this.props.isLoaded;
   }
   render() {
-    let saveClass = 'pointer';
-    if (!this.state.loaded) {
-      saveClass += ' disabled';
-    }
+    const {
+      isLoaded
+    } = this.props;
     return (
       <div className="menubar">
-        <button onClick={::this.onNew} className='pointer'>New</button>
-        <button onClick={::this.onLoad} className='pointer'>Load</button>
-        <button onClick={::this.onSave} className={saveClass}>Save</button>
+        <div className="left">
+          <button onClick={this.openLoad}>
+            <i className="fa fa-folder-open-o" aria-hidden />
+            Load
+          </button>
+          { isLoaded &&
+            <button onClick={::Manager.save}>
+              <i className="fa fa-floppy-o" aria-hidden />
+              Save
+            </button>
+          }
+        </div>
+        <div className="right">
+          <button onClick={this.openHelp}>
+            <i className="fa fa-info" aria-hidden />
+            Help
+          </button>
+        </div>
       </div>
     )
   }

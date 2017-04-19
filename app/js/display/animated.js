@@ -1,25 +1,25 @@
-import * as PIXI from 'pixi.js'
-import Manager from '../manager'
-
-export default class extends PIXI.Sprite {
+export default class AnimatedSprite extends PIXI.Sprite {
   constructor() {
     super();
-    this.cols = 0;
-    this.rows = 0;
+    this.cols = 1;
+    this.rows = 1;
     this.speed = 15;
     this.pattern = [];
     this.tick = 0;
     this.frame = 0;
-    Manager.on('SET_ANIMATED', (pattern, speed) => {
-      this.pattern = pattern;
-      this.speed = speed || 15;
-    })
-    Manager.on('SET_ANIMATED_ALPHA', (alpha) => {
-      this.alpha = alpha;
-      if (alpha === 1) {
-        this.updateFrame();
-      }
-    })
+  }
+  setPattern(pattern) {
+    this.pattern = pattern.peek();
+    this.tick = 0;
+    this.frame = 0;
+    this.updateFrame();
+  }
+  setColsRows(cols, rows) {
+    this.cols = cols;
+    this.rows = rows;
+    this.tick = 0;
+    this.frame = 0;
+    this.updateFrame();
   }
   update() {
     if (this.alpha === 0) return;
@@ -31,11 +31,13 @@ export default class extends PIXI.Sprite {
   }
   updateFrame() {
     this.tick = 0;
-    let width = this.texture.baseTexture.width;
-    let height = this.texture.baseTexture.height;
-    let frameW = Math.floor(width / this.cols);
-    let frameH = Math.floor(height / this.rows);
-    let index = this.pattern[this.frame] || 0;
+    const {
+      width, height
+    } = this.texture.baseTexture;
+    if (width === 0 || height === 0) return;
+    const frameW = Math.floor(width / this.cols);
+    const frameH = Math.floor(height / this.rows);
+    const index = this.pattern[this.frame] || 0;
     let x = (index % this.cols);
     let y = ((index - x) / this.cols);
     x *= frameW;
