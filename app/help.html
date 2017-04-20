@@ -23,7 +23,17 @@
 			var fs = require('fs');
 			var path = require('path');
 			var content = fs.readFileSync(path.join(__dirname, 'HELP.md'), 'utf8');
-			document.getElementById('help').innerHTML = marked(content);
+			marked(content, function(err, content) {
+				document.getElementById('help').innerHTML = content;
+				var links = document.getElementsByTagName('a');
+				var shell = require('electron').shell;
+				for (var i = 0; i < links.length; i++) {
+					links[i].onclick = function(event) {
+						event.preventDefault();
+						shell.openExternal(event.target.href);
+					}
+				}
+			});
 		</script>
 	</body>
 </html>
