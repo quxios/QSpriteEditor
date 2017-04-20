@@ -29,10 +29,10 @@ To use, run the cli
 ( That's assuming you're in the package.json directory, if not cd to that directory )
 
 ## Prebuilt
-Version 3.0.3
+Version 3.0.X
 
-* Windows - [32bit](https://mega.nz/#!ooMVXRoS!ycDWKdigAneLwOBHGi6fF9a3EEelvAfRDPj1LJcRsAA),
-[64bit](https://mega.nz/#!N5kGxRjB!63qxQwaIMQt0VTK1sitlymAFGeQv9W-AfckL_ZoumMk)
+* Windows - [32bit](http://bit.ly/2o5o6OM),
+[64bit](http://bit.ly/2otwmmW)
 
 
 ## Instructions
