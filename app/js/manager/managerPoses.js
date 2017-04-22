@@ -74,6 +74,7 @@ export default class ManagerPoses {
   }
   getPatternClip(i, cb) {
     const clip = Stage.getSlice(i);
+    if (!clip) return;
     const data = this.renderer.extract.base64(clip);
     cb(data);
   }
