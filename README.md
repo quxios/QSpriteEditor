@@ -30,10 +30,8 @@ To use, run the cli
 ( That's assuming you're in the package.json directory, if not cd to that directory )
 
 ## Prebuilt
-Version 3.0.X
-
-* Windows - [32bit](http://bit.ly/2o5o6OM),
-[64bit](http://bit.ly/2otwmmW)
+* Windows - [32bit](https://mega.nz/#!tl80gawC!jbk0eOCSyFdFxTkZ3g9ehKzQTSz1byqUZK8DwuU-Ag0),
+[64bit](https://mega.nz/#!Ao1SVIIZ!UxHdG9mh4PJy3MYckc0YH32sB_M8OcNS2rnjXRzJ4TQ)
 
 
 ## Instructions
