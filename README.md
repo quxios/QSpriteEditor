@@ -8,7 +8,7 @@
 3. Install the dependencies by using the cli
 
  `npm install`
- 
+
 4. Run the app with electron by using the cli
 
  `npm start`
@@ -30,10 +30,8 @@ To use, run the cli
 ( That's assuming you're in the package.json directory, if not cd to that directory )
 
 ## Prebuilt
-Version 3.0.X
-
-* Windows - [32bit](http://bit.ly/2o5o6OM),
-[64bit](http://bit.ly/2otwmmW)
+* Windows - [32bit](https://mega.nz/#!chkCzBwS!8ZFeVkq9Z4By6dMMLyRoGxk5JvOg1vC4-phuaZcG7b0),
+[64bit](https://mega.nz/#!xh8AGZab!dZfpM02RQeByA6Y27wWujrEpyokEcRBz_vkWGdNMT4Q)
 
 
 ## Instructions
