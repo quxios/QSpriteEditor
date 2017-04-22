@@ -1,4 +1,6 @@
 import Store from '../manager/store'
+import Manager from '../manager'
+
 import { observe } from 'mobx'
 import path from 'path'
 
@@ -133,25 +135,27 @@ class Stage extends PIXI.Container {
   setImage() {
     const { config } = Store;
     const { sampleImg } = config;
+    PIXI.utils.clearTextureCache();
     if (sampleImg) {
       const fileName = encodeURIComponent(path.basename(sampleImg));
-      const filepath = path.join(path.dirname(sampleImg), fileName);
-      let loader = new PIXI.loaders.Loader()
-        .add(fileName, filepath)
-        .load((loader, resources) => {
-          if (resources[fileName].error) {
-            this.spriteSheet.setSpriteSheet(PIXI.Texture.EMPTY);
-            this.animatedSprite.texture = PIXI.Texture.EMPTY;
-          } else {
-            this.spriteSheet.setSpriteSheet(resources[fileName].texture);
-            this.animatedSprite.texture = new PIXI.Texture(resources[fileName].texture.baseTexture);
-            this.setSlices();
-          }
-        })
-      loader = null;
+      const filePath = path.join(path.dirname(sampleImg), fileName);
+      this.animatedSprite.texture = PIXI.Texture.fromImage(filePath);
+      PIXI.Texture.removeFromCache(this.animatedSprite.texture);
+      this.animatedSprite.texture.baseTexture.on('error', () => {
+        Manager.notify('ERROR', 'Failed to load sample image');
+        this.spriteSheet.setSpriteSheet(PIXI.Texture.EMPTY);
+        this.animatedSprite.texture = PIXI.Texture.EMPTY;
+        this.visible = false;
+      })
+      this.animatedSprite.texture.baseTexture.on('loaded', () => {
+        this.spriteSheet.setSpriteSheet(PIXI.Texture.fromImage(filePath));
+        this.setSlices();
+        this.visible = true;
+      })
     } else {
       this.spriteSheet.setSpriteSheet(PIXI.Texture.EMPTY);
       this.animatedSprite.texture = PIXI.Texture.EMPTY;
+      this.visible = false;
     }
   }
   setSlices() {
@@ -173,17 +177,23 @@ class Stage extends PIXI.Container {
   }
   getSprite() {
     let sprite = new PIXI.Sprite();
+    if (this.spriteSheet.spriteSheet.texture === PIXI.Texture.EMPTY) {
+      sprite.texture = PIXI.Texture.EMPTY;
+      return sprite;
+    }
     sprite.texture = new PIXI.Texture(this.spriteSheet.spriteSheet.texture.baseTexture);
     return sprite;
   }
   getSlice(i) {
     let slice = this.getSprite();
+    if (slice.texture === PIXI.Texture.EMPTY) {
+      return null;
+    }
     const { config } = Store;
     const cols = Number(config.cols) || 1;
     const rows = Number(config.rows) || 1;
     const width = slice.width;
     const height = slice.height;
-    if (width === 0 || height === 0) return slice;
     const frameW = width / cols;
     const frameH = height / rows;
     let x = i % cols;
