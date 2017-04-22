@@ -8,6 +8,7 @@
 3. Install the dependencies by using the cli
 
  `npm install`
+ 
 4. Run the app with electron by using the cli
 
  `npm start`
