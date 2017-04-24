@@ -13,14 +13,20 @@
 				padding: 5px;
 				width: calc(100% - 30px);
 			}
+			#version {
+				padding: 5px;
+			}
     </style>
 	</head>
   <body>
+		<h1 id="version"></h1>
 		<div id="help"></div>
 		<script>
 			var marked = require('marked');
 			var fs = require('fs');
 			var path = require('path');
+			var json = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
+			document.getElementById('version').innerHTML = `Current Version: ${json.version}`;
 			var content = fs.readFileSync(path.join(__dirname, 'HELP.md'), 'utf8');
 			marked(content, function(err, content) {
 				document.getElementById('help').innerHTML = content;
