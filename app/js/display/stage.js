@@ -135,26 +135,32 @@ class Stage extends PIXI.Container {
   setImage() {
     const { config } = Store;
     const { sampleImg } = config;
-    PIXI.utils.clearTextureCache();
     if (sampleImg) {
       const fileName = encodeURIComponent(path.basename(sampleImg));
       const filePath = path.join(path.dirname(sampleImg), fileName);
-      this.animatedSprite.texture = PIXI.Texture.fromImage(filePath);
-      PIXI.Texture.removeFromCache(this.animatedSprite.texture);
-      this.animatedSprite.texture.baseTexture.on('error', () => {
+      const texture = PIXI.BaseTexture.fromImage(filePath);
+      texture.on('error', () => {
         Manager.notify('ERROR', 'Failed to load sample image');
         this.spriteSheet.setSpriteSheet(PIXI.Texture.EMPTY);
-        this.animatedSprite.texture = PIXI.Texture.EMPTY;
+        this.animatedSprite.setSprite(null);
         this.visible = false;
       })
-      this.animatedSprite.texture.baseTexture.on('loaded', () => {
-        this.spriteSheet.setSpriteSheet(PIXI.Texture.fromImage(filePath));
+      if (texture.hasLoaded) {
+        this.spriteSheet.setSpriteSheet(new PIXI.Texture(texture));
+        this.animatedSprite.setSprite(texture);
         this.setSlices();
         this.visible = true;
-      })
+      } else {
+        texture.on('loaded', () => {
+          this.spriteSheet.setSpriteSheet(new PIXI.Texture(texture));
+          this.animatedSprite.setSprite(texture);
+          this.setSlices();
+          this.visible = true;
+        })
+      }
     } else {
       this.spriteSheet.setSpriteSheet(PIXI.Texture.EMPTY);
-      this.animatedSprite.texture = PIXI.Texture.EMPTY;
+      this.animatedSprite.setSprite(null);
       this.visible = false;
     }
   }
@@ -175,35 +181,12 @@ class Stage extends PIXI.Container {
     this.spriteSheet.drawAnchor(Number(cols) || 1, Number(rows) || 1,
       Number(anchorX) || 0, Number(anchorY) || 0);
   }
-  getSprite() {
-    let sprite = new PIXI.Sprite();
-    if (this.spriteSheet.spriteSheet.texture === PIXI.Texture.EMPTY) {
-      sprite.texture = PIXI.Texture.EMPTY;
-      return sprite;
-    }
-    sprite.texture = new PIXI.Texture(this.spriteSheet.spriteSheet.texture.baseTexture);
-    return sprite;
-  }
   getSlice(i) {
-    let slice = this.getSprite();
-    if (slice.texture === PIXI.Texture.EMPTY) {
+    const frames = this.animatedSprite._frames;
+    if (!frames || !frames[i]) {
       return null;
     }
-    const { config } = Store;
-    const cols = Number(config.cols) || 1;
-    const rows = Number(config.rows) || 1;
-    const width = slice.width;
-    const height = slice.height;
-    const frameW = width / cols;
-    const frameH = height / rows;
-    let x = i % cols;
-    let y = Math.floor(i / cols);
-    x *= frameW;
-    y *= frameH;
-    if (x + frameW <= width && y + frameH <= height) {
-      slice.texture.frame = new PIXI.Rectangle(x, y, frameW, frameH);
-    }
-    return slice;
+    return new PIXI.Sprite(frames[i]);
   }
   centerSprites() {
     if (this.notLoadedText) {

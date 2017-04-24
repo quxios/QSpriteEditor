@@ -7,6 +7,8 @@ export default class AnimatedSprite extends PIXI.Sprite {
     this.pattern = [];
     this.tick = 0;
     this.frame = 0;
+    this._frames = [];
+    this._realTexture = null;
   }
   setPattern(pattern) {
     this.pattern = pattern.peek();
@@ -19,7 +21,23 @@ export default class AnimatedSprite extends PIXI.Sprite {
     this.rows = rows;
     this.tick = 0;
     this.frame = 0;
+    this.setSprite(this._realTexture);
     this.updateFrame();
+  }
+  setSprite(texture) {
+    this._frames = [];
+    this._realTexture = texture;
+    if (!texture) return;
+    const frameW = texture.width / this.cols;
+    const frameH = texture.height / this.rows;
+    for (let y = 0; y < this.rows; y++) {
+      const y1 = y * frameH;
+      for (let x = 0; x < this.cols; x++) {
+        const x1 = x * frameW;
+        const frame = new PIXI.Rectangle(x1, y1, frameW, frameH);
+        this._frames.push(new PIXI.Texture(texture, frame));
+      }
+    }
   }
   update() {
     if (this.alpha === 0) return;
@@ -31,19 +49,14 @@ export default class AnimatedSprite extends PIXI.Sprite {
   }
   updateFrame() {
     this.tick = 0;
-    const {
-      width, height
-    } = this.texture.baseTexture;
-    if (width === 0 || height === 0) return;
-    const frameW = Math.floor(width / this.cols);
-    const frameH = Math.floor(height / this.rows);
+    if (!this._realTexture || this._frames.length === 0) {
+      this.texture = PIXI.Texture.EMPTY;
+      return;
+    }
     const index = this.pattern[this.frame] || 0;
-    let x = (index % this.cols);
-    let y = ((index - x) / this.cols);
-    x *= frameW;
-    y *= frameH;
-    if (x + frameW <= width && y + frameH <= height) {
-      this.texture.frame = new PIXI.Rectangle(x, y, frameW, frameH);
+    const frame = this._frames[index];
+    if (frame) {
+      this.texture = frame;
     }
     this.frame++;
     if (this.frame >= this.pattern.length) {
