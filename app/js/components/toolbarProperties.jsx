@@ -15,8 +15,10 @@ export default class ToolbarProperties extends React.Component {
     }
     return (
       <div className="toolbar props" style={style}>
-        { config && <ConfigProperties data={config} /> }
-        { pose && <PoseProperties data={pose} /> }
+        <div className="container">
+          { config && <ConfigProperties data={config} /> }
+          { pose && <PoseProperties data={pose} /> }
+        </div>
       </div>
     )
   }
