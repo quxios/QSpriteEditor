@@ -1,4 +1,4 @@
-## QSprite Editor
+## QSprite Editor 3.0.7
 
 ## How to run
 **With Electron**
@@ -16,7 +16,8 @@
 
 **From Prebuild**
 
-Download a [prebuilt](/#Prebuilt) then run the QSprite shortcut or .exe in the app folder
+Download a [prebuilt](https://github.com/quxios/QSpriteEditor/releases/latest) then run the
+QSprite shortcut or .exe in the app folder
 
 ## Building
 Two Scripts are included to build:
@@ -28,10 +29,6 @@ To use, run the cli
 `npm run build:w64` or `npm run build:w32`
 
 ( That's assuming you're in the package.json directory, if not cd to that directory )
-
-## Prebuilt
-* Windows - [32bit](https://mega.nz/#!chkCzBwS!8ZFeVkq9Z4By6dMMLyRoGxk5JvOg1vC4-phuaZcG7b0),
-[64bit](https://mega.nz/#!xh8AGZab!dZfpM02RQeByA6Y27wWujrEpyokEcRBz_vkWGdNMT4Q)
 
 
 ## Instructions
