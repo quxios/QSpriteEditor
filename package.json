@@ -9,6 +9,7 @@
     "start": "electron . --dev",
     "compile:babel": "babel app -d compiled --copy-files -s -i node_modules,style.less",
     "compile": "npm run compile:babel",
+    "build": "npm run compile && build -w --x64 --ia32",
     "build:w64": "npm run compile && build -w --x64",
     "build:w32": "npm run compile && build -w --ia32"
   },
@@ -26,17 +27,17 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-electron": "^1.4.15",
     "babel-preset-react": "^6.16.0",
-    "babel-register": "^6.24.1",
-    "electron": "^1.4.6",
-    "electron-builder": "^8.5.3"
+    "babel-register": "^6.18.0",
+    "electron": "^1.6.5",
+    "electron-builder": "^17.0.1"
   },
   "build": {
+    "directories": {
+      "app": "compiled"
+    },
     "win": {
       "target": "dir",
       "icon": "app/imgs/icon.ico"
     }
-  },
-  "directories": {
-    "app": "compiled"
   }
 }
