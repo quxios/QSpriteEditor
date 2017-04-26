@@ -18,7 +18,7 @@ class Manager {
     mixin.forEach((s) => {
       s = s.prototype;
       Object.getOwnPropertyNames(s).forEach((prop) => {
-        if (name !== 'constructor') {
+        if (prop !== 'constructor') {
           Object.defineProperty(this, prop, Object.getOwnPropertyDescriptor(s, prop));
         }
       })
