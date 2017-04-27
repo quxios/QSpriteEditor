@@ -1,4 +1,4 @@
-## QSprite Editor 3.0.7
+## QSprite Editor 3.0.8
 
 ## How to run
 **With Electron**
