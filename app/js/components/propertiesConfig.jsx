@@ -11,16 +11,14 @@ export default class ConfigProperties extends React.Component {
     const prop = e.target.name;
     let value = e.target.value;
     if (prop === 'cols' || prop === 'rows') {
-      if (!/^\d*$/.test(value)) {
-        return; // invalid
+      if (!/^[0-9]*$/.test(value)) {
+        value = String(this.props.data[prop]);
       }
-      value = Number(value) || '';
     }
     if (prop === 'anchorX' || prop === 'anchorY') {
-      if (!/^\d*(.\d*)?$/.test(value)) {
-        return; // invalid
+      if (!/^-?[0-9]*(.[0-9]*)?$/.test(value)) {
+        value = String(this.props.data[prop]);
       }
-      value = Number(value) || '';
     }
     this.updateProperty(prop, value);
   }

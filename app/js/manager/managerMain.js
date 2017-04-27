@@ -97,6 +97,7 @@ export default class ManagerMain {
           ...pose,
           name: pose.name
         }
+        newPoses[pose.name].speed = Number(newPoses[pose.name].speed) || 0;
       })
       newConfig[config.name] = {
         ...ConfigJSON,
@@ -104,6 +105,10 @@ export default class ManagerMain {
         poses: newPoses,
         name: config.name
       }
+      newConfig[config.name].cols = Number(newConfig[config.name].cols) || 1;
+      newConfig[config.name].rows = Number(newConfig[config.name].rows) || 1;
+      newConfig[config.name].anchorX = Number(newConfig[config.name].anchorX) || 0;
+      newConfig[config.name].anchorY = Number(newConfig[config.name].anchorY) || 0;
     });
     return newConfig;
   }

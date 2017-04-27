@@ -10,10 +10,9 @@ export default class PoseProperties extends React.Component {
     const prop = e.target.name;
     let value = e.target.value;
     if (prop === 'speed') {
-      if (!/^\d*$/.test(value)) {
-        return; // invalid
+      if (!/^[0-9]*$/.test(value)) {
+        value = String(this.props.data[prop]);
       }
-      value = Number(value);
     }
     if (prop === 'adjust') {
       value = e.target.checked;
@@ -23,11 +22,11 @@ export default class PoseProperties extends React.Component {
         return; // invalid
       }
       value = value.split(',').map((v) => {
-        return /[0-9]/.test(v) ? Number(v) : ''
+        return /[0-9]/.test(v) ? Number(v) : '';
       })
-      while (value[0] === '') {
-        value.shift();
-      }
+      value = value.filter((v, i) => {
+        return i === value.length - 1 || v !== '';
+      })
     }
     this.updateProperty(prop, value);
   }
