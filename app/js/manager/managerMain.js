@@ -55,7 +55,7 @@ export default class ManagerMain {
       let poseNames = [];
       for (let j = 0; j < poses.length; j++) {
         if (poseNames.includes(poses[j].name)) {
-          this.notify('ERROR', `Duplicate pose name: ${poseNames[j].pose} in config ${configs[i].name}`);
+          this.notify('ERROR', `Duplicate pose name: ${poses[j].name} in config ${configs[i].name}`);
           valid = false;
           break;
         }
