@@ -1,4 +1,4 @@
-## QSprite Editor 3.0.8
+## QSprite Editor 3.0.9
 
 ## How to run
 **With Electron**
@@ -29,7 +29,6 @@ To use, run the cli
 `npm run build:w64` or `npm run build:w32`
 
 ( That's assuming you're in the package.json directory, if not cd to that directory )
-
 
 ## Instructions
 Can be found by click on the help button in the editor or [here](/app/HELP.md)
